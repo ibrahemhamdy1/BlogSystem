@@ -11,7 +11,5 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
- factory(App\comment::class,10)->create();
+Route::resource('/','PostController');
+ // factory(App\comment::class,10)->create();
