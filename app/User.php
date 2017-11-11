@@ -37,14 +37,7 @@ class User extends Authenticatable
       $this->hasMany('App\comment','user_id');
     }
 
-    public function can_psot()
-    {
-      $role=$this->role;
-      if ($rol=='author'||$rol=='admin') {
-          return true;
-      }
-      return  false;
-    }
+    
 
     public function is_admin()
     {

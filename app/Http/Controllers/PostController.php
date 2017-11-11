@@ -58,9 +58,11 @@ class PostController extends Controller
      * @param  \App\post  $post
      * @return \Illuminate\Http\Response
      */
-    public function edit(post $post)
+    public function edit($id)
     {
-        //
+        $post=Post::findOrFail($id);
+        
+        return view('Post.edit',compact('post'));
     }
 
     /**
@@ -72,7 +74,7 @@ class PostController extends Controller
      */
     public function update(Request $request, post $post)
     {
-        //
+        dd($request);
     }
 
     /**
