@@ -2,20 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\post;
 use Illuminate\Http\Request;
-
-class PostController extends Controller
+use Auth;
+use App;
+use App\User;
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index()
     {
-        $posts=Post::all();
-        return  view('Post.index', compact('posts'));
+        
     }
 
     /**
@@ -42,23 +46,31 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\post  $post
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        $post=Post::where('id',$id)->get();
+        if (Auth::user()->id == $id)
+        {
+           $user=User::where('id',$id)->get();
+           // $posts=post()->user
+           return view('user.index',compact('user'));
+        }else
+        {
+            return App::abort(404);
 
-        return  view('Post.singlepost', compact('post'));
+        }
+        
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\post  $post
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(post $post)
+    public function edit($id)
     {
         //
     }
@@ -67,10 +79,10 @@ class PostController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\post  $post
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, post $post)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -78,10 +90,10 @@ class PostController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\post  $post
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(post $post)
+    public function destroy($id)
     {
         //
     }
